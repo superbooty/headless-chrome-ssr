@@ -1,0 +1,61 @@
+{
+  "name": "chrome-ssr",
+  "version": "3.0.0",
+  "description": "ExpressJs application to render vue application on the server",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LasaleFamine/pupperender/issues",
+    "email": "info@godev.space"
+  },
+  "homepage": "https://github.com/LasaleFamine/pupperender",
+  "author": {
+    "name": "Levis Dev"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "src"
+  ],
+  "main": "server.mjs",
+  "keywords": [
+    "pupperender",
+    "renderer",
+    "pwa",
+    "spa",
+    "puppeter",
+    "rendertron",
+    "indexing",
+    "bot"
+  ],
+  "dependencies": {
+    "puppeteer": "5.5.0"
+  },
+  "devDependencies": {
+    "ava": "3.13.0",
+    "codecov": "3.7.2",
+    "express": "4.17.1",
+    "nyc": "15.1.0",
+    "standard-version": "9.0.0",
+    "supertest": "5.0.0",
+    "xo": "0.33.1"
+  },
+  "xo": {
+    "rules": {
+      "max-len": [
+        "error",
+        {
+          "code": 100,
+          "ignoreUrls": true
+        }
+      ],
+      "capitalized-comments": "off"
+    }
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
+  }
+}
