@@ -3,6 +3,11 @@ import {ssr} from './src/ssr.mjs';
 
 const app = express();
 
+app.get('/', async(req, res, next) => {
+  const html = '<div class="test">help...<div>';
+  return res.status(200).send(html);
+});
+
 app.get('/product/:code', async(req, res, next) => {
   const origin = `${req.protocol}://localhost:8080`;
   console.log("ORIGIN :: ", origin);
