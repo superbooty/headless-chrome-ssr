@@ -2,6 +2,23 @@
 
 to run this with ES6 you need to run it in experimental mode
 node --experimental-modules server.mjs
+```
+There may be issues installing puppeteer with the respective chrome headless version.
+In such cases you can intall puppeeter and skip the chrome installation then tell it 
+where to find the chrome app executable.
+
+export PUPPETEER_SKIP_DOWNLOAD='true' to tell puppeteer to install without chrome
+
+then
+
+npm i puppeteer 
+
+this line shows how to run puppeteer with local chrome version
+
+file (ssr.mjs) 
+const browser = await puppeteer.launch({ headless: true, 
+    executablePath: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome' });
+```
 
 ### Running with apache
 ```
