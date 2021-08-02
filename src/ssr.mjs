@@ -7,7 +7,9 @@ export async function ssr(url) {
   // get from cache if it's there
   if (RENDER_CACHE.has(url)) return RENDER_CACHE.get(url);
   // process the page
-  const browser = await puppeteer.launch({headless: true});
+  // const browser = await puppeteer.launch({headless: true});
+  const browser = await puppeteer.launch({ headless: true, 
+    executablePath: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome' });
   const page = await browser.newPage();
   // await page.setRequestInterception(true);
   // page.on('request', req => {
