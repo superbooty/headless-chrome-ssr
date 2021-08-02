@@ -9,7 +9,7 @@ export async function ssr(url) {
   // process the page
   // const browser = await puppeteer.launch({headless: true});
   const browser = await puppeteer.launch({ headless: true, 
-    executablePath: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome' });
+    executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google\ Chrome' });
   const page = await browser.newPage();
   // await page.setRequestInterception(true);
   // page.on('request', req => {
@@ -35,6 +35,15 @@ export async function ssr(url) {
    *   elements.forEach(e => e.remove());
    * });
    */
+
+  await page.evaluate(() => {
+    const pageCtx = document.querySelector(".bread-crumb").__vueParentComponent.ctx;
+    // console.log("APP INSTANCE :: ", appEl);
+    const dynScript = document.createElement("script");
+    const inlineCode = document.createTextNode(`window.__PUPPETEER_CTX__ = ${JSON.stringify(pageCtx)}`);
+    dynScript.appendChild(inlineCode); 
+    document.body.prepend(dynScript);
+  });
 
   await page.evaluate(() => {
     const appEl = document.querySelector('#app');
