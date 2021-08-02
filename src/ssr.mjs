@@ -22,9 +22,9 @@ export async function ssr(url) {
   //   // 3. Pass through all other requests.
   //   req.continue();
   // });
-  await page.goto(url, {waitUntil: 'domcontentloaded'});
-  // await page.goto(url, {waitUntil: 'networkidle0'});
-  await page.waitForSelector(".product-details");
+  // await page.goto(url, {waitUntil: 'domcontentloaded'});
+  await page.goto(url, {waitUntil: 'networkidle0'});
+  // await page.waitForSelector(".product-details");
   /**
    *  Uncomment this line if you want the client to stop hydration
    * 
