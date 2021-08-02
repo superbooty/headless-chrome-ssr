@@ -5,7 +5,10 @@ const RENDER_CACHE = new Map();
 export async function ssr(url) {
   console.log("URL :: ", url);
   // get from cache if it's there
-  if (RENDER_CACHE.has(url)) return RENDER_CACHE.get(url);
+  if (RENDER_CACHE.has(url)) {
+    console.log("Sending Response from Cache");
+    return RENDER_CACHE.get(url);
+  }
   // process the page
   // const browser = await puppeteer.launch({headless: true});
   const browser = await puppeteer.launch({ headless: true, 
@@ -24,9 +27,9 @@ export async function ssr(url) {
   //   // 3. Pass through all other requests.
   //   req.continue();
   // });
-  // await page.goto(url, {waitUntil: 'domcontentloaded'});
-  await page.goto(url, {waitUntil: 'networkidle0'});
-  // await page.waitForSelector(".product-details");
+  await page.goto(url, {waitUntil: 'domcontentloaded'});
+  // await page.goto(url, {waitUntil: 'networkidle0'});
+  await page.waitForSelector(".product-details");
   /**
    *  Uncomment this line if you want the client to stop hydration
    * 
@@ -37,10 +40,14 @@ export async function ssr(url) {
    */
 
   await page.evaluate(() => {
-    const pageCtx = document.querySelector(".bread-crumb").__vueParentComponent.ctx;
+    const productCtx = document.querySelector(".bread-crumb").__vueParentComponent.ctx;
     // console.log("APP INSTANCE :: ", appEl);
+    const headerCtx = document.querySelector(".header").__vueParentComponent.ctx
     const dynScript = document.createElement("script");
-    const inlineCode = document.createTextNode(`window.__PUPPETEER_CTX__ = ${JSON.stringify(pageCtx)}`);
+    const inlineCode = document.createTextNode(`
+      window.__PUPPETEER_PRODUCT_CTX__ = ${JSON.stringify(productCtx)};
+      window.__PUPPETEER_HEADER_CTX__ = ${JSON.stringify(headerCtx)};
+    `);
     dynScript.appendChild(inlineCode); 
     document.body.prepend(dynScript);
   });
