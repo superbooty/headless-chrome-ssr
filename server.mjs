@@ -53,6 +53,7 @@ app.get('/api/product/:country/:language/:code', async(req, res, next) => {
       headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          "User-Agent": `ssr-test`
       },
       body: JSON.stringify({
           operationName: "product",
@@ -68,7 +69,7 @@ app.get('/api/product/:country/:language/:code', async(req, res, next) => {
       return Promise.all(responses.map(function (response) {
           return response.json();
       })).then(function (data) {
-        res.status(200).json(data[0]);;
+        res.status(200).json(data[0]);
       }).catch(function (error) {
           console.log(error);
       });
